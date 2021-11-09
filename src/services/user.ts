@@ -60,6 +60,7 @@ const editUser = async (body: any, userID: string): Promise<resType> => {
           newUser[requestKey] = bcrypt.hashSync(body[requestKey], 12);
           continue;
         }
+        // Adicionar verificação para edição de role
         newUser[requestKey] = body[requestKey];
       }
     }
