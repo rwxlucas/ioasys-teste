@@ -38,7 +38,7 @@ const signUp = async (body: IEnterpriseModel): Promise<resType> => {
 	}
 }
 
-const edit = async (body: any, enterpriseID: string) => {
+const edit = async (body: any, enterpriseID: string): Promise<resType> => {
 	try {
 		if (!enterpriseID) return makeResponse(400, { message: 'Missing enterpriseID' });
 		const enterprise = await Enterprise.findById(enterpriseID);
@@ -58,8 +58,32 @@ const edit = async (body: any, enterpriseID: string) => {
 	}
 }
 
+const list = async (query: { params?: string }): Promise<resType> => {
+	try {
+		const { params } = query;
+		if (!params) {
+			const enterprise = await Enterprise.find({});
+			if (!enterprise) return makeResponse(404, { message: 'Enterprises not found' });
+			return makeResponse(200, { message: 'Enterprises found', data: enterprise });
+		}
+		let queryParams: { [key: string]: number } = {};
+		const enterpriseKeys = ['name', 'description', 'actiationField', 'director', 'founded', 'employee', 'id', "_id"];
+		params.split(',').forEach((field) => {
+			if (enterpriseKeys.includes(field)) {
+				if (field === 'id') queryParams['_id'] = 0;
+				else queryParams[field] = 1;
+			}
+		});
+		const enterprise = await Enterprise.find({}, queryParams);
+		return makeResponse(200, { message: 'Enterprises found', data: enterprise });
+	} catch (error: any) {
+		return makeResponse(500, { message: error.message })
+	}
+}
+
 
 export default {
 	signUp,
-	edit
+	edit,
+	list
 }

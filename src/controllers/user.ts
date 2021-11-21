@@ -26,8 +26,8 @@ const getUserData = async (req: Request, res: Response) => {
 }
 
 const listUsers = async (req: Request, res: Response) => {
-	const { body } = req;
-	const controller = await user.listUsers(body);
+	const { query } = req;
+	const controller = await user.listUsers(query);
 	return res.status(controller.status).json(controller.response);
 }
 

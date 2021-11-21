@@ -7,9 +7,7 @@ export default ({ app }: { app: Application }): Promise<any> => {
 		try {
 			app.use(cors());
 			app.use(json());
-
 			app.use(routes);
-
 			return resolve(true);
 		} catch (err) {
 			if (err) {

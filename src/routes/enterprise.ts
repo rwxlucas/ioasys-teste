@@ -6,5 +6,6 @@ const route = Router();
 
 route.post('/signup', onlyAdmin, enteprise.signUp); // @POST Register enteprise
 route.put('/edit/:id', onlyAdmin, enteprise.edit); // @PUT Edit enteprise
+route.get('/list', onlyAdmin, enteprise.list); // @PUT Edit enteprise
 
 export default route;

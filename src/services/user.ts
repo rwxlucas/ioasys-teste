@@ -84,15 +84,26 @@ const getUserData = async (userID: string): Promise<resType> => {
   }
 }
 
-const listUsers = async (body: any): Promise<resType> => {
+const listUsers = async (query: { params?: string }): Promise<resType> => {
   try {
-    const { params }: { params: string[] } = body;
-    if (!params || typeof params !== 'object') return makeResponse(400, { message: 'Incorrect request' });
-    const users = await User.find(params);
-    if (!users) return makeResponse(404, { message: 'No users found' });
+    const { params } = query;
+    if (!params) {
+      const users = await User.find({});
+      if (!users) return makeResponse(404, { message: 'Users not found' });
+      return makeResponse(200, { data: users });
+    }
+    let queryParams: { [key: string]: number } = {};
+    const usersKeys = ['name', 'birthday', 'UF', 'city', 'password', 'schooling', 'email', "role", "_id", "id"];
+    params.split(',').forEach((field) => {
+      if (usersKeys.includes(field)) {
+        if (field === 'id') queryParams['_id'] = 0;
+        else queryParams[field] = 1;
+      }
+    });
+    const users = await User.find({}, queryParams);
     return makeResponse(200, { data: users });
   } catch (error: any) {
-    return makeResponse(500, { message: error.message });
+    return makeResponse(500, { message: error.message })
   }
 }
 
