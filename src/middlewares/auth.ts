@@ -115,3 +115,19 @@ export const onlyAdmin = async (req: Request, res: Response, next: NextFunction)
 		return res.status(500).json({ message: error.message });
 	}
 }
+
+export const onlyStaff = async (req: Request, res: Response, next: NextFunction) => {
+	try {
+		if (!(<IHeaders>req.headers).token) throw { message: 'NotAllowed' };
+		const decoded = getDecoded((<IHeaders>req.headers).token);
+		const [user] = await getUsers([decoded.userID as string]);
+		if (!user) throw { message: 'User not found' };
+		if (user.role.includes('admin') || user.role.includes('super_user')) return next();
+		throw { message: 'NotAllowed' };
+	} catch (error: any) {
+		if (error.message === 'invalid signature' || error.message === 'NotAllowed') {
+			return res.status(403).json({ message: 'Not allowed' });
+		}
+		return res.status(500).json({ message: error.message });
+	}
+}
