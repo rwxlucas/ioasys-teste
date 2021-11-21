@@ -6,6 +6,12 @@ export interface resType {
   }
 }
 
+export interface IMissingParameters {
+  missing: boolean;
+  variables?: string;
+  user?: IUserModel
+}
+
 export interface IUserModel extends Document {
   id?: string;
   _doc?: any;
@@ -19,8 +25,16 @@ export interface IUserModel extends Document {
   role: string[]
 }
 
-export interface IMissingParameters {
-  missing: boolean;
-  variables?: string;
-  user?: IUserModel
+export interface IEnterpriseModel extends Document {
+  id?: string;
+  _doc?: any;
+  name: string,
+  description: string;
+  actuationField: string[];
+  director: string[];
+  founded: number;
+  employee: {
+    userID: string;
+    userRole: string[];
+  }[];
 }
