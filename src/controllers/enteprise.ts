@@ -7,6 +7,13 @@ const signUp = async (req: Request, res: Response) => {
 	return res.status(controller.status).json(controller.response);
 }
 
+const edit = async (req: Request, res: Response) => {
+	const { body, params } = req;
+	const controller = await enteprise.edit(body, params.id);
+	return res.status(controller.status).json(controller.response);
+}
+
 export default {
-	signUp
+	signUp,
+	edit
 }

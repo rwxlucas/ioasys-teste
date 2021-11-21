@@ -31,7 +31,10 @@ export interface IEnterpriseModel extends Document {
   name: string,
   description: string;
   actuationField: string[];
-  director: string[];
+  director: {
+    name: string;
+    email: string;
+  }[];
   founded: number;
   employee: {
     userID: string;
