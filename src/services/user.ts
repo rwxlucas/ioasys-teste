@@ -3,7 +3,7 @@ import { makeResponse, valuesToLowerCase, verifyObjectRequest } from "../utils/u
 import jwt from 'jsonwebtoken';
 import User from '../models/user';
 import bcrypt from 'bcrypt';
-import { roles } from "../middlewares/verifyJwt";
+import { roles } from "../middlewares/auth";
 
 const signUp = async (body: IUserModel): Promise<resType> => {
   try {

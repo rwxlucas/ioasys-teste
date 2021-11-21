@@ -7,6 +7,7 @@ export interface resType {
 }
 
 export interface IUserModel extends Document {
+  id?: string;
   _doc?: any;
   name: string,
   birthday: string,
