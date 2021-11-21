@@ -3,7 +3,7 @@ import { IncomingHttpHeaders } from 'http';
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import env from '../config/index';
 import User from '../models/user';
-import { IUserModel } from "../utils/types";
+import { IUserModel } from "../models/user";
 
 interface IJwtPayload extends JwtPayload {
 	userID?: string;

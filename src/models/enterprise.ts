@@ -1,5 +1,20 @@
-import { Schema, model } from "mongoose";
-import { IEnterpriseModel } from "../utils/types";
+import { Schema, Document, model } from "mongoose";
+export interface IEnterpriseModel extends Document {
+  id?: string;
+  _doc?: any;
+  name: string,
+  description: string;
+  actuationField: string[];
+  director: {
+    name: string;
+    email: string;
+  }[];
+  founded: number;
+  employee: {
+    userID: string;
+    userRole: string[];
+  }[];
+}
 
 const enterpriseSchema = new Schema<IEnterpriseModel>({
 	name: { type: String, required: true },

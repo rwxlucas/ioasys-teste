@@ -1,4 +1,5 @@
-import { IEnterpriseModel, resType } from "../utils/types";
+import { resType } from "../utils/types";
+import { IEnterpriseModel } from '../models/enterprise';
 import { makeResponse, verifyObjectRequest, verifyEmail } from "../utils/utils";
 import Enterprise from '../models/enterprise';
 

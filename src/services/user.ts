@@ -1,4 +1,5 @@
-import { IUserModel, resType } from "../utils/types";
+import { resType } from "../utils/types";
+import { IUserModel } from "../models/user";
 import { makeResponse, valuesToLowerCase, verifyObjectRequest } from "../utils/utils";
 import jwt from 'jsonwebtoken';
 import User from '../models/user';
@@ -20,7 +21,7 @@ const signUp = async (body: IUserModel): Promise<resType> => {
       UF,
       city,
       schooling,
-      role: ['user']
+      role: ['user'] // Adicionar manipulação do role do user
     });
     await newUser.save();
     return makeResponse(200, { message: 'User created', data: newUser.id });

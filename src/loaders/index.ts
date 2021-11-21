@@ -9,9 +9,11 @@ export default ({ expressApp }: ILoaders): Promise<any> => {
 	return new Promise(async (resolve, reject) => {
 		try {
 			console.log('Initializing loaders...');
-			await express({ app: expressApp });
+			await Promise.all([
+				express({ app: expressApp }),
+				mongodb()
+			])
 			console.log('***Express loaded');
-			await mongodb();
 			console.log('***MongoDB loaded');
 			return resolve(true);
 		} catch (err) {
